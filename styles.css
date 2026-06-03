@@ -118,7 +118,7 @@ a {
 
 .brand strong {
   display: block;
-  font-size: clamp(17px, 2.5vw, 20px);
+  font-size: clamp(15px, 2.2vw, 18px);
   line-height: 1.35;
   color: var(--primary-dark);
   word-break: keep-all;
