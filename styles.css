@@ -425,19 +425,18 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 15px;
-  color: #fff;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12) inset;
+  background: #f8fafc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) inset;
+  overflow: hidden;
+  text-decoration: none;
 }
 
-.partner-logo.polyu { background: linear-gradient(135deg, #c8102e, #e11d48); }
-.partner-logo.ucas { background: linear-gradient(135deg, #003087, #1e40af); }
-.partner-logo.hit { background: linear-gradient(135deg, #1e3a8a, #b91c1c); }
-.partner-logo.cup { background: linear-gradient(135deg, #0369a1, #0e7490); }
-.partner-logo.iwhr { background: linear-gradient(135deg, #0284c7, #0ea5e9); }
-.partner-logo.aust { background: linear-gradient(135deg, #b91c1c, #dc2626); }
+.partner-logo img {
+  max-width: 88%;
+  max-height: 88%;
+  object-fit: contain;
+  display: block;
+}
 
 .partner-name {
   font-size: 14px;

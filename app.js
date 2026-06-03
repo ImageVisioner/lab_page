@@ -294,7 +294,7 @@ const fallbackData = {
       role: "硕士研究生（外校指导）",
       year: "2022 级",
       focus: "光谱成像",
-      destination: "中国水利科学院（攻读博士）",
+      destination: "中国水利水电科学院（攻读博士）",
       email: "guanziyu@example.edu"
     },
     {
