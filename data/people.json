@@ -1,0 +1,128 @@
+[
+  {
+    "name": "刘陈华",
+    "group": "导师",
+    "role": "教授、硕士生导师",
+    "title": "实验室负责人",
+    "focus": "计算凸优化、光谱重建算法",
+    "email": "liuchenhua023@163.com"
+  },
+  {
+    "name": "辛笛",
+    "group": "导师",
+    "role": "教授、博士生导师",
+    "focus": "光谱智能计算、计算成像、可信学习",
+    "email": "xindi@example.edu",
+    "homepage": "#"
+  },
+  {
+    "name": "邓磊",
+    "group": "在读学生",
+    "role": "博士研究生",
+    "focus": "高光谱反演与不确定性估计",
+    "year": "2023 级",
+    "email": "denglei@example.edu"
+  },
+  {
+    "name": "祝连庆",
+    "group": "在读学生",
+    "role": "硕士研究生",
+    "focus": "光谱数据集与可复现评测",
+    "year": "2024 级",
+    "email": "zhulianqing@example.edu"
+  },
+  {
+    "name": "董明利",
+    "group": "在读学生",
+    "role": "硕士研究生",
+    "focus": "便携式光谱仪系统集成",
+    "year": "2023 级",
+    "email": "dongmingli@stu.example.edu"
+  },
+  {
+    "name": "吴磊",
+    "group": "在读学生",
+    "role": "博士研究生",
+    "focus": "光谱大模型与科学推理",
+    "year": "2022 级",
+    "email": "wulei@example.edu"
+  },
+  {
+    "name": "刘畅",
+    "group": "在读学生",
+    "role": "本科生",
+    "focus": "实验复现与数据整理",
+    "year": "2022 级",
+    "email": "liuchang@stu.example.edu"
+  },
+  {
+    "name": "李思",
+    "group": "在读学生",
+    "role": "本科生",
+    "focus": "三维光谱可视化",
+    "year": "2023 级",
+    "email": "lisi@stu.example.edu"
+  },
+  {
+    "name": "周杰",
+    "group": "在读学生",
+    "role": "硕士研究生",
+    "focus": "光谱仪器标定与系统集成",
+    "year": "2024 级",
+    "email": "zhoujie@stu.example.edu"
+  },
+  {
+    "name": "黎浩",
+    "group": "已毕业",
+    "role": "硕士研究生（外校指导）",
+    "focus": "光谱数据分析",
+    "year": "2022 级",
+    "destination": "东南大学（攻读博士）",
+    "email": "lihao@example.edu"
+  },
+  {
+    "name": "官子愈",
+    "group": "已毕业",
+    "role": "硕士研究生（外校指导）",
+    "focus": "光谱成像",
+    "year": "2022 级",
+    "destination": "中国水利科学院（攻读博士）",
+    "email": "guanziyu@example.edu"
+  },
+  {
+      "name": "王柯玄",
+    "group": "已毕业",
+    "role": "硕士研究生（外校指导）",
+    "focus": "光谱算法",
+    "year": "2023 级",
+    "destination": "上海智辰半导体 算法工程师",
+    "email": "wangkexuan@example.edu"
+  },
+  {
+    "name": "刘旭",
+    "group": "已毕业",
+    "role": "硕士研究生（外校指导）",
+    "focus": "光谱重建",
+    "year": "2022 级",
+    "destination": "四川大学（攻读博士）",
+    "email": "liuxu@example.edu"
+  },
+  {
+    "name": "王佩凡",
+    "group": "已毕业",
+    "role": "本科生（外校指导）",
+    "focus": "光谱可视化",
+    "year": "2021 级",
+    "destination": "江西理工大学（攻读硕士）",
+    "email": "wangpeifan@example.edu"
+  },
+  {
+    "name": "申伟",
+    "group": "已毕业",
+    "role": "本科生（外校指导）",
+    "focus": "光谱数据处理",
+    "year": "2023 级",
+    "destination": "湖北工业大学（攻读硕士）",
+    "email": "shenwei@example.edu"
+  }
+]

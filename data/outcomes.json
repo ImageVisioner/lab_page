@@ -1,0 +1,278 @@
+[
+  {
+    "type": "论文",
+    "year": "2026",
+    "venue": "MICCAI 2026",
+    "title": "面向鲁棒医学图像分割的结构感知表征学习",
+    "authors": "陈一帆, 张明*, 等",
+    "description": "提出结构先验与深度表征结合的分割框架，提升跨中心数据上的稳定性。",
+    "image": "assets/outcome-segmentation.png",
+    "links": { "PDF": "#", "代码": "#", "项目页": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2026",
+    "venue": "CVPR 2026",
+    "title": "可泛化视觉基础模型在科学影像中的自适应微调",
+    "authors": "王睿, 徐立, 张明*",
+    "description": "研究参数高效微调与域自适应策略，提升基础模型在科学影像任务上的可迁移性。",
+    "image": "assets/outcome-benchmark.png",
+    "links": { "PDF": "#", "代码": "#", "项目页": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2026",
+    "venue": "IEEE TPAMI",
+    "title": "大规模医学影像预训练与下游任务统一评测基准",
+    "authors": "张明*, 等",
+    "description": "构建预训练—微调—评测一体化协议，支持多中心、多模态医学影像任务比较。",
+    "links": { "PDF": "#", "数据": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2025",
+    "venue": "NeurIPS 2025",
+    "title": "因果启发的医学影像域泛化学习",
+    "authors": "陈一帆, 张明*",
+    "description": "从因果视角建模域不变特征，缓解医院间设备与人群差异带来的性能下降。",
+    "image": "assets/outcome-segmentation.png",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2025",
+    "venue": "ICLR 2025",
+    "title": "视觉—语言对齐的科学影像问答系统",
+    "authors": "徐立, 王睿, 张明*",
+    "description": "面向科学影像构建可解释问答与证据检索，支持研究报告辅助生成。",
+    "image": "assets/outcome-multimodal.png",
+    "links": { "PDF": "#", "演示": "#", "项目页": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2025",
+    "venue": "中国科学：信息科学",
+    "title": "面向国产算力的医学影像智能分析系统设计与实现",
+    "authors": "张明*, 等",
+    "description": "软硬件协同优化推理流程，适配国产加速芯片的临床部署需求。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2025",
+    "venue": "IEEE TMI",
+    "title": "基于不确定性的医学影像弱监督诊断方法",
+    "authors": "王睿, 徐立, 张明*",
+    "description": "在有限标注条件下建模预测不确定性，服务临床可解释诊断。",
+    "image": "assets/outcome-multimodal.png",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2024",
+    "venue": "CVPR 2024",
+    "title": "跨域医学图像分割的自适应特征对齐方法",
+    "authors": "陈一帆, 张明*",
+    "description": "针对源域与目标域分布差异，学习可迁移的分割表征。",
+    "image": "assets/outcome-segmentation.png",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2024",
+    "venue": "NeurIPS 2024",
+    "title": "多模态临床报告与影像联合推理框架",
+    "authors": "徐立, 王睿, 张明*",
+    "description": "联合影像与文本模态，提升临床场景下的可解释推理能力。",
+    "links": { "PDF": "#", "项目页": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2024",
+    "venue": "ECCV 2024",
+    "title": "自监督对比学习在病理全切片图像中的表征预训练",
+    "authors": "王睿, 张明*",
+    "description": "利用海量无标注 WSI 学习通用表征，显著提升下游少样本分类性能。",
+    "image": "assets/outcome-benchmark.png",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2024",
+    "venue": "Medical Image Analysis",
+    "title": "关节置换术后 X 光片自动测量与随访评估",
+    "authors": "陈一帆, 徐立, 张明*",
+    "description": "自动提取关键解剖标志与假体角度，辅助骨科随访量化分析。",
+    "image": "assets/outcome-multimodal.png",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2023",
+    "venue": "MICCAI 2023",
+    "title": "面向小样本学习的医学图像分类正则化策略",
+    "authors": "王睿, 张明*",
+    "description": "在标注稀缺条件下引入结构正则，缓解过拟合。",
+    "image": "assets/outcome-benchmark.png",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2023",
+    "venue": "IEEE JBHI",
+    "title": "基于注意力机制的病灶检测与定位网络",
+    "authors": "陈一帆, 徐立, 张明*",
+    "description": "结合多尺度注意力，提高早期病灶检出率。",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2022",
+    "venue": "AAAI 2022",
+    "title": "噪声标注下的鲁棒医学图像训练方法",
+    "authors": "张明*, 等",
+    "description": "针对标签噪声设计鲁棒损失与样本筛选机制。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2021",
+    "venue": "ICCV 2021",
+    "title": "三维医学体数据的高效卷积编码结构",
+    "authors": "张明*, 等",
+    "description": "降低三维卷积计算开销，保持体数据分割精度。",
+    "image": "assets/outcome-segmentation.png",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2020",
+    "venue": "IEEE TMI",
+    "title": "深度学习在肺部 CT 结节检测中的应用综述与基准",
+    "authors": "张明*, 等",
+    "description": "系统梳理结节检测深度学习方法并给出统一评测设置。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2019",
+    "venue": "MICCAI 2019",
+    "title": "基于图卷积的器官结构约束分割网络",
+    "authors": "张明*, 等",
+    "description": "利用解剖结构先验约束分割结果的空间一致性。",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2019",
+    "venue": "CVPR 2019",
+    "title": "弱监督条件下的医学图像区域定位方法",
+    "authors": "张明*, 等",
+    "description": "仅使用图像级标签完成病灶区域定位与分类。",
+    "image": "assets/outcome-multimodal.png",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2018",
+    "venue": "IEEE TMI",
+    "title": "多序列 MRI 脑肿瘤分割的级联卷积网络",
+    "authors": "张明*, 等",
+    "description": "级联粗分割与精细分割，融合多序列磁共振信息。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2018",
+    "venue": "NeurIPS 2018",
+    "title": "面向医学影像的对抗鲁棒性训练与评测",
+    "authors": "张明*, 等",
+    "description": "分析对抗样本对医学模型的影响并提出防御策略。",
+    "links": { "PDF": "#", "项目页": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2017",
+    "venue": "ICCV 2017",
+    "title": "全卷积网络在细胞显微图像分割中的迁移学习",
+    "authors": "张明*, 等",
+    "description": "将自然图像预训练模型迁移至显微细胞分割任务。",
+    "image": "assets/outcome-benchmark.png",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2017",
+    "venue": "AAAI 2017",
+    "title": "基于主动学习的医学图像标注代价优化",
+    "authors": "张明*, 等",
+    "description": "减少人工标注量，优先选择信息量最大的样本。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2016",
+    "venue": "MICCAI 2016",
+    "title": "冠状动脉 CTA 血管中心线自动提取方法",
+    "authors": "张明*, 等",
+    "description": "结合形态学与深度学习完成血管中心线跟踪。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2016",
+    "venue": "IEEE JBHI",
+    "title": "视网膜 OCT 层边界自动分割算法",
+    "authors": "张明*, 等",
+    "description": "面向青光眼筛查的 OCT 层结构自动分析。",
+    "links": { "PDF": "#", "代码": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2015",
+    "venue": "CVPR 2015",
+    "title": "基于稀疏编码的组织病理图像特征表示",
+    "authors": "张明*, 等",
+    "description": "利用稀疏表示提取病理切片判别特征，服务癌症分级。",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "论文",
+    "year": "2015",
+    "venue": "IEEE TMI",
+    "title": "超声图像乳腺肿块检测的两阶段分类框架",
+    "authors": "张明*, 等",
+    "description": "候选区域生成与精细分类相结合，提升超声筛查效率。",
+    "image": "assets/outcome-segmentation.png",
+    "links": { "PDF": "#" }
+  },
+  {
+    "type": "项目",
+    "year": "2025",
+    "venue": "省部级课题",
+    "title": "多模态光谱—文本联合推理平台",
+    "description": "融合光谱特征、结构化指标与文本报告，为科学分析提供可追溯推理流程。",
+    "image": "assets/outcome-multimodal.png",
+    "demoId": "project-multimodal",
+    "links": { "项目介绍": "#publications", "在线演示": "#projects" }
+  },
+  {
+    "type": "项目",
+    "year": "2025",
+    "venue": "开放科学",
+    "title": "光谱基础模型评测与数据资源库",
+    "description": "开放数据目录、评测协议与复现实验脚本，支持系统化模型比较。",
+    "image": "assets/outcome-benchmark.png",
+    "demoId": "project-benchmark",
+    "links": { "数据": "#resources", "评测": "#projects" }
+  },
+  {
+    "type": "项目",
+    "year": "2024",
+    "venue": "校企联合",
+    "title": "便携式现场光谱快检系统",
+    "description": "面向现场检测的微型光谱仪数据采集与云端智能分析一体化原型。",
+    "demoId": "instrument-system",
+    "links": { "白皮书": "#", "演示": "#projects" }
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "title": "数据集",
+    "summary": "公开光谱数据集、元数据、使用许可与访问说明。",
+    "demoId": "resource-dataset",
+    "links": { "完整目录": "#", "API 说明": "data/resources.json" }
+  },
+  {
+    "title": "代码仓库",
+    "summary": "项目代码、复现实验脚本与模型权重。",
+    "demoId": "resource-code",
+    "links": { "GitHub": "#", "发布页": "#" }
+  },
+  {
+    "title": "组内文档",
+    "summary": "组会阅读列表、实验记录、入组文档与常用模板。",
+    "demoId": "resource-docs",
+    "links": { "模板库": "#", "入门指南": "#recruitment" }
+  },
+  {
+    "title": "演示视频",
+    "summary": "各研究方向与系统原型的演示视频与操作手册。",
+    "links": { "Bilibili": "#", "YouTube": "#" }
+  }
+]

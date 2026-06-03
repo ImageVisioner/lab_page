@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-page-title>智能计算摄影成像课题组</title>
+    <meta name="description" data-page-description content="" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="load-error" class="load-error" role="alert" hidden></div>
+
+    <div class="top-bar" data-top-bar>
+      <span class="top-bar-univ" data-university></span>
+      <span class="top-bar-college" data-college></span>
+    </div>
+
+    <header class="site-header" id="home">
+      <div class="page-wrap header-inner">
+        <a class="brand" href="#home" data-brand-link>
+          <span class="brand-mark" data-brand-mark>谱</span>
+          <span class="brand-text">
+            <strong data-lab-name>智能计算摄影成像课题组</strong>
+            <small data-lab-subtitle>Intelligent Computing Photography Imaging Lab</small>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" data-nav-toggle>
+          菜单
+        </button>
+        <nav class="nav" id="main-nav" aria-label="主导航" data-nav></nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-band" aria-label="实验室首页横幅">
+        <div class="page-wrap hero">
+          <div class="hero-copy">
+            <p class="hero-badge" data-hero-badge></p>
+            <h1 data-hero-title>智能计算摄影成像课题组</h1>
+            <p class="lead" data-hero-lead></p>
+            <div class="hero-meta" data-hero-keywords aria-label="研究关键词"></div>
+            <div class="hero-actions" data-hero-actions></div>
+          </div>
+          <figure class="hero-figure" data-hero-figure>
+            <img
+              data-hero-image
+              src="assets/lab-hero.png"
+              alt="智能计算摄影成像课题组科研环境示意图"
+            />
+            <figcaption data-hero-caption></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag" data-about-tag>实验室简介</p>
+            <h2 data-about-title>实验室简介</h2>
+          </div>
+          <div class="about-layout">
+            <div class="about-text" data-about-text></div>
+            <aside class="about-facts" data-about-highlights aria-label="实验室概况"></aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" class="section section-band quiet">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag" data-research-tag>研究方向</p>
+            <h2 data-research-title>主要研究方向</h2>
+            <p class="section-intro" data-research-intro></p>
+          </div>
+          <div class="research-grid" data-research></div>
+        </div>
+      </section>
+
+      <section id="publications" class="section">
+        <div class="page-wrap">
+          <div class="section-heading row-heading">
+            <div>
+              <p class="section-tag" data-pub-tag>论文成果</p>
+              <h2 data-pub-title>代表性论文</h2>
+              <p class="section-intro" data-pub-intro></p>
+            </div>
+            <a class="text-link" data-archive-publications href="#">更多论文</a>
+          </div>
+          <div class="pub-toolbar" data-pub-toolbar hidden>
+            <label class="pub-filter-label" for="pub-year-filter" data-pub-filter-label>发表年份</label>
+            <select id="pub-year-filter" class="pub-filter" data-pub-year-filter aria-label="按发表年份筛选论文"></select>
+            <span class="pub-total" data-pub-total></span>
+            <span class="pub-filter-count" data-pub-count hidden></span>
+          </div>
+          <div class="pub-grid" data-publications></div>
+        </div>
+      </section>
+
+      <section id="projects" class="section section-band quiet">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag" data-proj-tag>科研项目</p>
+            <h2 data-proj-title>代表性项目</h2>
+            <p class="section-intro" data-proj-intro></p>
+          </div>
+          <div class="outcome-grid" data-projects></div>
+        </div>
+      </section>
+
+      <section id="people" class="section">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag" data-people-tag>团队成员</p>
+            <h2 data-people-title>课题组人员</h2>
+            <p class="section-intro" data-people-intro></p>
+          </div>
+          <div class="section-toolbar" data-people-filter aria-label="按类别筛选成员"></div>
+          <div class="people-groups" data-people></div>
+        </div>
+      </section>
+
+      <section id="alumni" class="section section-band quiet">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag" data-alumni-tag>校友风采</p>
+            <h2 data-alumni-title>毕业学生去向</h2>
+            <p class="section-intro" data-alumni-intro></p>
+          </div>
+          <div class="alumni-grid" data-alumni></div>
+        </div>
+      </section>
+
+      <section id="news" class="section section-band quiet">
+        <div class="page-wrap">
+          <div class="section-heading row-heading">
+            <div>
+              <p class="section-tag" data-news-tag>新闻通知</p>
+              <h2 data-news-title>实验室动态</h2>
+              <p class="section-intro" data-news-intro></p>
+            </div>
+            <a class="text-link" data-archive-news href="#">更多动态</a>
+          </div>
+          <input type="search" class="demo-search" placeholder="搜索新闻标题或正文…" data-news-search aria-label="搜索新闻" />
+          <ul class="news-list" data-news></ul>
+        </div>
+      </section>
+
+      <section id="recruitment" class="section">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag" data-recruit-tag>招生信息</p>
+            <h2 data-recruit-title>招生与招聘</h2>
+            <p class="section-intro" data-recruit-intro></p>
+          </div>
+          <div class="recruit-grid" data-recruitment></div>
+        </div>
+      </section>
+
+      <section id="partners" class="section section-band quiet">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <p class="section-tag">合作交流</p>
+            <h2>合作高校</h2>
+            <p class="section-intro">实验室与以下高校及科研院所保持长期紧密合作与联合培养。</p>
+          </div>
+          <div class="partners-grid">
+            <div class="partner-card">
+              <div class="partner-logo polyu">港理大</div>
+              <div class="partner-name">香港理工大学</div>
+            </div>
+            <div class="partner-card">
+              <div class="partner-logo ucas">国科大</div>
+              <div class="partner-name">中国科学院大学</div>
+            </div>
+            <div class="partner-card">
+              <div class="partner-logo hit">哈工大</div>
+              <div class="partner-name">哈尔滨工业大学</div>
+            </div>
+            <div class="partner-card">
+              <div class="partner-logo cup">石大</div>
+              <div class="partner-name">中国石油大学（华东）</div>
+            </div>
+            <div class="partner-card">
+              <div class="partner-logo iwhr">水科院</div>
+              <div class="partner-name">中国水利科学院</div>
+            </div>
+            <div class="partner-card">
+              <div class="partner-logo aust">安理工</div>
+              <div class="partner-name">安徽理工大学</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact-section">
+        <div class="page-wrap contact-wrap">
+          <div>
+            <p class="section-tag" data-contact-tag>联系我们</p>
+            <h2 data-contact-title>联系我们</h2>
+            <p class="section-intro" data-contact-intro></p>
+          </div>
+          <address class="contact-card" data-contact></address>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-wrap footer-inner">
+        <span data-footer-copyright></span>
+        <span data-footer-note></span>
+      </div>
+    </footer>
+
+    <script src="data/lab-data.js"></script>
+    <script src="demos.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>
