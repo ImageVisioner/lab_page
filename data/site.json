@@ -16,6 +16,7 @@
     { "label": "研究方向", "href": "#research" },
     { "label": "团队成员", "href": "#people" },
     { "label": "校友去向", "href": "#alumni" },
+    { "label": "实验室动态", "href": "#news" },
     { "label": "论文成果", "href": "#publications" },
     { "label": "合作高校", "href": "#partners" },
     { "label": "联系我们", "href": "#contact" }
@@ -45,7 +46,7 @@
   },
   "contact": {
     "title": "联系我们",
-    "intro": "报考学生请发送简历到邮箱 liuchenhua023@163.com",
+    "intro": "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com",
     "organization": "先进光电成像与智能装备课题组",
     "address": "北京大学 科研楼 305 室",
     "email": "liuchenhua023@163.com",
@@ -85,7 +86,7 @@
       "intro": "实验室毕业生在高校、科研院所及企业发挥重要作用，部分代表性去向如下。"
     },
     "news": { "eyebrow": "新闻通知", "title": "实验室动态", "intro": "最新 8 条动态，支持搜索过滤。包含论文接收、平台开源、招生启动等。" },
-    "recruitment": { "eyebrow": "招生信息", "title": "招生与招聘", "intro": "4 类招募：研究生（常年）、本科生（每学期）、企业合作（长期开放）。" }
+    "recruitment": { "eyebrow": "招生信息", "title": "招生与招聘", "intro": "长期招募：研究生（常年）、本科生（每学期）、企业合作（长期开放）。" }
   },
   "footer": {
     "copyright": "© 2026 先进光电成像与智能装备课题组",

@@ -300,6 +300,7 @@ h2 {
 .section-intro {
   margin: 10px 0 0;
   color: var(--muted);
+  white-space: pre-line;
 }
 
 .section-tag {

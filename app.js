@@ -30,6 +30,7 @@ const fallbackData = {
       { label: "研究方向", href: "#research" },
       { label: "团队成员", href: "#people" },
       { label: "校友去向", href: "#alumni" },
+      { label: "实验室动态", href: "#news" },
       { label: "论文成果", href: "#publications" },
       { label: "联系我们", href: "#contact" }
     ],
@@ -49,7 +50,7 @@ const fallbackData = {
     },
     contact: {
       title: "联系我们",
-      intro: "报考学生请发送简历到邮箱 liuchenhua023@163.com",
+      intro: "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com",
       organization: "先进光电成像与智能装备课题组",
       address: "",
       email: "liuchenhua023@163.com",
@@ -410,7 +411,13 @@ function applySite(site) {
 
   const setText = (selector, text) => {
     const el = document.querySelector(selector);
-    if (el && text != null) el.textContent = text;
+    if (el && text != null) {
+      if (typeof text === "string" && text.includes("\n")) {
+        el.innerHTML = text.replace(/\n/g, "<br>");
+      } else {
+        el.textContent = text;
+      }
+    }
   };
 
   setText("[data-university]", lab.university);
@@ -785,55 +792,119 @@ function renderPeople(people, groupOrder, sectionConfig = {}) {
   const destLabel = sectionConfig.destinationLabel || "毕业去向";
   const emailLabel = sectionConfig.emailLabel || "邮箱";
   const groups = groupPeople(people, groupOrder);
+
+  // Helper to render a single person card
+  const renderPersonCard = (person) => {
+    const meta = [person.role, person.year].filter(Boolean).join(" · ");
+    const links = [];
+    if (person.homepage) {
+      links.push(`<a href="${escapeHtml(person.homepage)}">个人主页</a>`);
+    }
+    const linkRow = links.length ? `<div class="person-links">${links.join("")}</div>` : "";
+    const destination = person.destination
+      ? `<p class="person-destination"><span class="person-label">${escapeHtml(destLabel)}</span>${escapeHtml(person.destination)}</p>`
+      : "";
+    const email = person.email
+      ? `<p class="person-email"><span class="person-label">${escapeHtml(emailLabel)}</span><a href="mailto:${escapeHtml(person.email)}">${escapeHtml(person.email)}</a></p>`
+      : "";
+    const folder = person.group === "导师" ? "teacher" : "student";
+    const avatarData = person.photo
+      ? ` data-photo="assets/people/${folder}/${escapeHtml(person.photo)}" data-bio="${escapeHtml(person.bio || "")}"`
+      : "";
+    return `
+      <article class="person-card">
+        <div class="avatar"${avatarData} aria-hidden="true">${escapeHtml(initials(person.name))}</div>
+        <div>
+          <h4>${escapeHtml(person.name)}${person.title ? `<span class="person-title">${escapeHtml(person.title)}</span>` : ""}</h4>
+          <strong>${escapeHtml(meta)}</strong>
+          <p class="person-focus">${escapeHtml(person.focus || "")}</p>
+          ${destination}
+          ${email}
+          ${linkRow}
+        </div>
+      </article>
+    `;
+  };
+
   el.innerHTML = groups
     .filter(([, members]) => members.length)
-    .map(
-      ([group, members]) => `
+    .map(([group, members]) => {
+      const isStudentGroup = group === "在读学生";
+      const pageSize = 6;
+      let currentPage = 1;
+      let currentMembers = members;
+
+      const buildGridHTML = (pageMembers) => pageMembers.map(renderPersonCard).join("");
+
+      let paginationHTML = "";
+      let gridHTML = buildGridHTML(members);
+
+      if (isStudentGroup && members.length > pageSize) {
+        const totalPages = Math.ceil(members.length / pageSize);
+        const start = (currentPage - 1) * pageSize;
+        gridHTML = buildGridHTML(members.slice(start, start + pageSize));
+        paginationHTML = `
+          <div class="pub-pagination" data-student-pagination>
+            <button class="demo-btn" data-page="prev" disabled>上一页</button>
+            <span class="pub-page-info">第 ${currentPage} / ${totalPages} 页</span>
+            <button class="demo-btn" data-page="next">下一页</button>
+          </div>
+        `;
+      }
+
+      return `
         <section class="people-group">
           <h3 class="people-group-title">${escapeHtml(group)}</h3>
-          <div class="people-grid">
-            ${members
-              .map((person) => {
-                const meta = [person.role, person.year].filter(Boolean).join(" · ");
-                const links = [];
-                if (person.homepage) {
-                  links.push(
-                    `<a href="${escapeHtml(person.homepage)}">个人主页</a>`
-                  );
-                }
-                const linkRow = links.length
-                  ? `<div class="person-links">${links.join("")}</div>`
-                  : "";
-                const destination = person.destination
-                  ? `<p class="person-destination"><span class="person-label">${escapeHtml(destLabel)}</span>${escapeHtml(person.destination)}</p>`
-                  : "";
-                const email = person.email
-                  ? `<p class="person-email"><span class="person-label">${escapeHtml(emailLabel)}</span><a href="mailto:${escapeHtml(person.email)}">${escapeHtml(person.email)}</a></p>`
-                  : "";
-                const folder = person.group === "导师" ? "teacher" : "student";
-                const avatarData = person.photo
-                  ? ` data-photo="assets/people/${folder}/${escapeHtml(person.photo)}" data-bio="${escapeHtml(person.bio || "")}"`
-                  : "";
-                return `
-                  <article class="person-card">
-                    <div class="avatar"${avatarData} aria-hidden="true">${escapeHtml(initials(person.name))}</div>
-                    <div>
-                      <h4>${escapeHtml(person.name)}${person.title ? `<span class="person-title">${escapeHtml(person.title)}</span>` : ""}</h4>
-                      <strong>${escapeHtml(meta)}</strong>
-                      <p class="person-focus">${escapeHtml(person.focus || "")}</p>
-                      ${destination}
-                      ${email}
-                      ${linkRow}
-                    </div>
-                  </article>
-                `;
-              })
-              .join("")}
+          <div class="people-grid" data-student-grid>
+            ${gridHTML}
           </div>
+          ${paginationHTML}
         </section>
-      `
-    )
+      `;
+    })
     .join("");
+
+  // Attach pagination handlers for 在读学生 group
+  const studentSection = Array.from(el.querySelectorAll(".people-group")).find(
+    (sec) => sec.querySelector(".people-group-title")?.textContent === "在读学生"
+  );
+
+  if (studentSection) {
+    const grid = studentSection.querySelector('[data-student-grid]');
+    const pag = studentSection.querySelector('[data-student-pagination]');
+    if (grid && pag) {
+      const allMembers = groups.find(([g]) => g === "在读学生")?.[1] || [];
+      const pageSize = 6;
+      let currentPage = 1;
+      const totalPages = Math.ceil(allMembers.length / pageSize);
+
+      const update = () => {
+        const start = (currentPage - 1) * pageSize;
+        grid.innerHTML = allMembers.slice(start, start + pageSize).map(renderPersonCard).join("");
+        pag.innerHTML = `
+          <button class="demo-btn" data-page="prev" ${currentPage === 1 ? "disabled" : ""}>上一页</button>
+          <span class="pub-page-info">第 ${currentPage} / ${totalPages} 页</span>
+          <button class="demo-btn" data-page="next" ${currentPage >= totalPages ? "disabled" : ""}>下一页</button>
+        `;
+        attachPersonPopups(grid);
+        // re-bind buttons
+        bindStudentPagination();
+      };
+
+      const bindStudentPagination = () => {
+        pag.querySelectorAll("[data-page]").forEach((btn) => {
+          btn.onclick = () => {
+            const action = btn.getAttribute("data-page");
+            if (action === "prev" && currentPage > 1) currentPage--;
+            if (action === "next" && currentPage < totalPages) currentPage++;
+            update();
+          };
+        });
+      };
+
+      bindStudentPagination();
+    }
+  }
 
   // Attach hover popups for people with photo/bio
   attachPersonPopups(el);
