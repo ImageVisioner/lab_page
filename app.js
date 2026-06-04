@@ -19,7 +19,7 @@ const fallbackData = {
       mark: "谱",
       university: "示例大学",
       college: "计算机学院",
-      subtitle: "Intelligent Computing Photography Imaging Lab"
+      subtitle: "Advanced Optoelectronic Imaging and Intelligent Equipment Lab"
     },
     meta: {
       title: "先进光电成像与智能装备课题组",
