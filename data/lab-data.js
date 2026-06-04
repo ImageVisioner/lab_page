@@ -2,7 +2,7 @@
   site: {
   "lab": {
     "name": "先进光电成像与智能装备课题组",
-    "mark": "谱",
+    "mark": "像",
     "university": "示例大学",
     "college": "计算机学院",
     "department": "计算机科学与技术系",
@@ -508,7 +508,9 @@
     "focus": "光谱算法",
     "year": "2023 级",
     "destination": "上海智辰半导体 算法工程师",
-    "email": "wangkexuan@example.edu"
+    "email": "wangkexuan@example.edu",
+    "photo": "wangkexuan.jpg",
+    "bio": "王柯玄硕士研究生毕业后加入上海智辰半导体担任算法工程师，专注于光谱算法的工程化实现。"
   },
   {
     "name": "刘旭",

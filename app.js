@@ -16,7 +16,7 @@ const fallbackData = {
   site: {
     lab: {
       name: "先进光电成像与智能装备课题组",
-      mark: "谱",
+      mark: "像",
       university: "示例大学",
       college: "计算机学院",
       subtitle: "Advanced Optoelectronic Imaging and Intelligent Equipment Lab"

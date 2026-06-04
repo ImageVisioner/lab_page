@@ -108,7 +108,9 @@
     "focus": "光谱算法",
     "year": "2023 级",
     "destination": "上海智辰半导体 算法工程师",
-    "email": "wangkexuan@example.edu"
+    "email": "wangkexuan@example.edu",
+    "photo": "wangkexuan.jpg",
+    "bio": "王柯玄硕士研究光谱领域扩散模型设计，毕业后入职上海智辰半导体，任算法工程师，从事 AI 编译器研发。"
   },
   {
     "name": "刘旭",

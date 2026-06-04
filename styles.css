@@ -118,7 +118,7 @@ a {
 
 .brand strong {
   display: block;
-  font-size: clamp(17px, 2.5vw, 20px);
+  font-size: clamp(19px, 2.8vw, 23px);
   line-height: 1.35;
   color: var(--primary-dark);
   word-break: keep-all;
@@ -127,9 +127,9 @@ a {
 
 .brand small {
   display: block;
-  margin-top: 2px;
-  font-size: 11px;
-  line-height: 1.4;
+  margin-top: 1px;
+  font-size: 10.5px;
+  line-height: 1.3;
   color: var(--muted);
   overflow-wrap: anywhere;
 }
