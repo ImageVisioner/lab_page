@@ -5,7 +5,9 @@
     "role": "教授、硕士生导师",
     "title": "实验室负责人",
     "focus": "计算凸优化、光谱重建算法",
-    "email": "liuchenhua023@163.com"
+    "email": "liuchenhua023@163.com",
+    "photo": "liuchenhua.jpg",
+    "bio": "刘陈华教授长期从事计算凸优化、光谱重建算法与智能感知研究，主持国家自然科学基金等多项课题，发表学术论文50余篇，培养研究生数十名。"
   },
   {
     "name": "辛笛",
@@ -13,7 +15,9 @@
     "role": "教授、博士生导师",
     "focus": "光谱智能计算、计算成像、可信学习",
     "email": "xindi@example.edu",
-    "homepage": "#"
+    "homepage": "#",
+    "photo": "xindi.jpg",
+    "bio": "辛笛教授专注于光谱智能计算、计算成像与可信学习方向，在多模态感知与科学可视化领域有深入研究，多次获得省部级科技奖励。"
   },
   {
     "name": "邓磊",
@@ -21,7 +25,9 @@
     "role": "博士研究生",
     "focus": "高光谱反演与不确定性估计",
     "year": "2023 级",
-    "email": "denglei@example.edu"
+    "email": "denglei@example.edu",
+    "photo": "denglei.jpg",
+    "bio": "邓磊博士研究生主要研究高光谱反演与不确定性估计方法，在遥感与医学影像领域有相关工作。"
   },
   {
     "name": "祝连庆",
@@ -29,7 +35,9 @@
     "role": "硕士研究生",
     "focus": "光谱数据集与可复现评测",
     "year": "2024 级",
-    "email": "zhulianqing@example.edu"
+    "email": "zhulianqing@example.edu",
+    "photo": "zhulianqing.jpg",
+    "bio": "祝连庆硕士研究生致力于光谱数据集构建与评测协议设计，参与多个开源项目的维护。"
   },
   {
     "name": "董明利",
@@ -78,7 +86,9 @@
     "focus": "光谱数据分析",
     "year": "2022 级",
     "destination": "东南大学（攻读博士）",
-    "email": "lihao@example.edu"
+    "email": "lihao@example.edu",
+    "photo": "lihao.jpg",
+    "bio": "黎浩硕士研究生毕业后赴东南大学攻读博士，研究方向为光谱数据分析与机器学习。"
   },
   {
     "name": "官子愈",
@@ -87,7 +97,9 @@
     "focus": "光谱成像",
     "year": "2022 级",
     "destination": "中国水利水电科学院（攻读博士）",
-    "email": "guanziyu@example.edu"
+    "email": "guanziyu@example.edu",
+    "photo": "guanziyu.jpg",
+    "bio": "官子愈硕士研究生毕业后在中国水利水电科学研究院攻读博士，专注于光谱成像与遥感应用。"
   },
   {
       "name": "王柯玄",
@@ -114,7 +126,9 @@
     "focus": "光谱可视化",
     "year": "2021 级",
     "destination": "江西理工大学（攻读硕士）",
-    "email": "wangpeifan@example.edu"
+    "email": "wangpeifan@example.edu",
+    "photo": "wangpeifan.png",
+    "bio": "王佩凡本科生毕业后赴江西理工大学攻读硕士，研究方向为光谱可视化与交互设计。"
   },
   {
     "name": "申伟",
@@ -123,6 +137,8 @@
     "focus": "光谱数据处理",
     "year": "2023 级",
     "destination": "湖北工业大学（攻读硕士）",
-    "email": "shenwei@example.edu"
+    "email": "shenwei@example.edu",
+    "photo": "shenwei.jpg",
+    "bio": "申伟本科生毕业后在湖北工业大学攻读硕士，专注于光谱数据处理与算法实现。"
   }
 ]

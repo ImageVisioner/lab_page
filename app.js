@@ -15,14 +15,14 @@ const endpoints = {
 const fallbackData = {
   site: {
     lab: {
-      name: "智能计算摄影成像课题组",
+      name: "先进光电成像与智能装备课题组",
       mark: "谱",
       university: "示例大学",
       college: "计算机学院",
       subtitle: "Intelligent Computing Photography Imaging Lab"
     },
     meta: {
-      title: "智能计算摄影成像课题组",
+      title: "先进光电成像与智能装备课题组",
       description: "实验室学术主页"
     },
     nav: [
@@ -35,7 +35,7 @@ const fallbackData = {
     ],
     hero: {
       badge: "示例大学",
-      title: "智能计算摄影成像课题组",
+      title: "先进光电成像与智能装备课题组",
       lead: "面向光谱智能计算与科学感知的研究团队。",
       keywords: ["计算机视觉"],
       actions: [{ label: "联系我们", href: "#contact", variant: "primary" }]
@@ -43,14 +43,14 @@ const fallbackData = {
     about: { 
       title: "实验室简介", 
       paragraphs: [
-        "智能计算摄影成像课题组隶属于示例大学计算机学院，长期致力于光谱智能计算、计算成像与多模态感知等前沿交叉领域的研究。课题组围绕高光谱成像与反演、智能物质识别、科学数据低秩重建以及光谱仪器系统集成等核心方向，开展理论方法创新与工程原型开发，旨在推动光谱技术在遥感监测、材料分析、生物医学及环境科学等领域的深度应用。实验室坚持严谨求实、开放协作的学术传统，注重算法可复现性与软硬件协同设计，欢迎对光谱计算、人工智能与科学可视化感兴趣的同学加入，也诚挚邀请高校、科研院所及企业开展联合研究与技术合作。"
+        "先进光电成像与智能装备课题组隶属于示例大学计算机学院，长期致力于光谱智能计算、计算成像与多模态感知等前沿交叉领域的研究。课题组围绕高光谱成像与反演、智能物质识别、科学数据低秩重建以及光谱仪器系统集成等核心方向，开展理论方法创新与工程原型开发，旨在推动光谱技术在遥感监测、材料分析、生物医学及环境科学等领域的深度应用。实验室坚持严谨求实、开放协作的学术传统，注重算法可复现性与软硬件协同设计，欢迎对光谱计算、人工智能与科学可视化感兴趣的同学加入，也诚挚邀请高校、科研院所及企业开展联合研究与技术合作。"
       ], 
       highlights: [] 
     },
     contact: {
       title: "联系我们",
       intro: "报考学生请发送简历到邮箱 liuchenhua023@163.com",
-      organization: "智能计算摄影成像课题组",
+      organization: "先进光电成像与智能装备课题组",
       address: "",
       email: "liuchenhua023@163.com",
       links: []
@@ -58,7 +58,7 @@ const fallbackData = {
     archives: { publications: "#", news: "#" },
     personGroupOrder: ["导师", "在读学生", "已毕业"],
     sections: {},
-    footer: { copyright: "© 2026 智能计算摄影成像课题组", note: "" }
+    footer: { copyright: "© 2026 先进光电成像与智能装备课题组", note: "" }
   },
   research: [
     {
@@ -341,7 +341,13 @@ const fallbackData = {
     { title: "数据集", summary: "公开数据与访问说明。", links: { 目录: "#" } }
   ],
   recruitment: [
-    { type: "研究生", status: "常年招生", title: "硕士/博士", body: "详见 data/recruitment.json。" }
+    {
+      type: "研究生招生",
+      status: "常年招生",
+      title: "硕士研究生 / 博士研究生",
+      body: "欢迎对计算机视觉、光谱智能计算、多模态学习感兴趣的同学报考。请提前邮件联系并附简历、成绩单与研究计划（如有）。",
+      requirements: ["通过 CET-4", "具有一定的编程基础", "热爱生活", "热爱运动"]
+    }
   ]
 };
 
@@ -804,9 +810,13 @@ function renderPeople(people, groupOrder, sectionConfig = {}) {
                 const email = person.email
                   ? `<p class="person-email"><span class="person-label">${escapeHtml(emailLabel)}</span><a href="mailto:${escapeHtml(person.email)}">${escapeHtml(person.email)}</a></p>`
                   : "";
+                const folder = person.group === "导师" ? "teacher" : "student";
+                const avatarData = person.photo
+                  ? ` data-photo="assets/people/${folder}/${escapeHtml(person.photo)}" data-bio="${escapeHtml(person.bio || "")}"`
+                  : "";
                 return `
                   <article class="person-card">
-                    <div class="avatar" aria-hidden="true">${escapeHtml(initials(person.name))}</div>
+                    <div class="avatar"${avatarData} aria-hidden="true">${escapeHtml(initials(person.name))}</div>
                     <div>
                       <h4>${escapeHtml(person.name)}${person.title ? `<span class="person-title">${escapeHtml(person.title)}</span>` : ""}</h4>
                       <strong>${escapeHtml(meta)}</strong>
@@ -824,6 +834,60 @@ function renderPeople(people, groupOrder, sectionConfig = {}) {
       `
     )
     .join("");
+
+  // Attach hover popups for people with photo/bio
+  attachPersonPopups(el);
+}
+
+function attachPersonPopups(rootEl) {
+  if (!rootEl) return;
+  const popupContainer = document.getElementById("person-popup-root") || (() => {
+    const c = document.createElement("div");
+    c.id = "person-popup-root";
+    c.style.cssText = "position:absolute;top:0;left:0;pointer-events:none;z-index:2000;";
+    document.body.appendChild(c);
+    return c;
+  })();
+
+  let activePopup = null;
+
+  rootEl.querySelectorAll(".avatar[data-photo]").forEach((avatar) => {
+    const photoSrc = avatar.getAttribute("data-photo");
+    const bioText = avatar.getAttribute("data-bio") || "";
+
+    avatar.addEventListener("mouseenter", () => {
+      if (activePopup) activePopup.remove();
+
+      const pop = document.createElement("div");
+      pop.className = "person-popup";
+      pop.style.pointerEvents = "auto";
+      pop.innerHTML = `
+        <img src="${photoSrc}" alt="照片" onerror="this.style.display='none'">
+        ${bioText ? `<div class="bio">${bioText}</div>` : ""}
+      `;
+      popupContainer.appendChild(pop);
+      activePopup = pop;
+
+      const rect = avatar.getBoundingClientRect();
+      const scrollX = window.scrollX || window.pageXOffset;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const popWidth = 240;
+      let left = rect.left + scrollX + rect.width / 2 - popWidth / 2;
+      left = Math.max(16, Math.min(left, window.innerWidth - popWidth - 16));
+      pop.style.left = `${left}px`;
+      pop.style.top = `${rect.bottom + scrollY + 10}px`;
+      pop.style.display = "block";
+
+      const hide = () => {
+        if (pop && pop.parentNode) pop.parentNode.removeChild(pop);
+        if (activePopup === pop) activePopup = null;
+        avatar.removeEventListener("mouseleave", hide);
+        pop.removeEventListener("mouseleave", hide);
+      };
+      avatar.addEventListener("mouseleave", hide, { once: true });
+      pop.addEventListener("mouseleave", hide, { once: true });
+    });
+  });
 }
 
 function renderAlumni(people) {
@@ -834,40 +898,106 @@ function renderAlumni(people) {
     el.innerHTML = `<p class="section-empty">暂无毕业学生去向记录。</p>`;
     return;
   }
+  const folder = "student";
   el.innerHTML = alumni
     .map(
-      (person) => `
-        <article class="alumni-card">
-          <div class="avatar" aria-hidden="true">${escapeHtml(initials(person.name))}</div>
-          <div>
-            <h4>${escapeHtml(person.name)}</h4>
-            <strong>${escapeHtml(person.role || "")}</strong>
-            <p class="alumni-destination"><span class="person-label">去向</span>${escapeHtml(person.destination)}</p>
-            ${person.email ? `<p class="alumni-email"><a href="mailto:${escapeHtml(person.email)}">${escapeHtml(person.email)}</a></p>` : ""}
-          </div>
-        </article>
-      `
+      (person) => {
+        const avatarData = person.photo
+          ? ` data-photo="assets/people/${folder}/${escapeHtml(person.photo)}" data-bio="${escapeHtml(person.bio || "")}"`
+          : "";
+        return `
+          <article class="alumni-card">
+            <div class="avatar"${avatarData} aria-hidden="true">${escapeHtml(initials(person.name))}</div>
+            <div>
+              <h4>${escapeHtml(person.name)}</h4>
+              <strong>${escapeHtml(person.role || "")}</strong>
+              <p class="alumni-destination"><span class="person-label">去向</span>${escapeHtml(person.destination)}</p>
+              ${person.email ? `<p class="alumni-email"><a href="mailto:${escapeHtml(person.email)}">${escapeHtml(person.email)}</a></p>` : ""}
+            </div>
+          </article>
+        `;
+      }
     )
     .join("");
+
+  // Attach hover popups for alumni with photo/bio
+  attachPersonPopups(el);
 }
 
 function renderNews(items) {
   const el = document.querySelector("[data-news]");
   if (!el) return;
-  el.innerHTML = items
-    .map(
-      (item) => `
-        <li class="news-item">
-          <time class="news-date">${escapeHtml(item.date)}</time>
-          <div class="news-body">
-            <h3>${escapeHtml(item.title)}</h3>
-            <p>${escapeHtml(item.body)}</p>
-            ${item.link ? `<a class="news-more" href="${escapeHtml(item.link.href)}">${escapeHtml(item.link.label || "详情")}</a>` : ""}
-          </div>
-        </li>
-      `
-    )
-    .join("");
+
+  // Pagination + search state (per render call)
+  let currentPage = 1;
+  const pageSize = 5;
+  let currentFiltered = items || [];
+  let searchInput = document.querySelector("[data-news-search]");
+
+  const renderList = (list) => {
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = list.slice(start, start + pageSize);
+    if (!pageItems.length) {
+      el.innerHTML = `<li class="news-item"><div class="news-body"><p class="section-empty">暂无匹配的动态。</p></div></li>`;
+      return;
+    }
+    el.innerHTML = pageItems
+      .map(
+        (item) => `
+          <li class="news-item">
+            <time class="news-date">${escapeHtml(item.date)}</time>
+            <div class="news-body">
+              <h3>${escapeHtml(item.title)}</h3>
+              <p>${escapeHtml(item.body)}</p>
+              ${item.link ? `<a class="news-more" href="${escapeHtml(item.link.href)}">${escapeHtml(item.link.label || "详情")}</a>` : ""}
+            </div>
+          </li>
+        `
+      )
+      .join("");
+  };
+
+  const renderPagination = (total) => {
+    let pag = el.parentNode.querySelector("[data-news-pagination]");
+    if (!pag) {
+      pag = document.createElement("div");
+      pag.className = "pub-pagination";
+      pag.setAttribute("data-news-pagination", "");
+      el.parentNode.appendChild(pag);
+    }
+    const totalPages = Math.ceil(total / pageSize) || 1;
+    pag.innerHTML = `
+      <button class="demo-btn" data-page="prev" ${currentPage === 1 ? "disabled" : ""}>上一页</button>
+      <span class="pub-page-info">第 ${currentPage} / ${totalPages} 页</span>
+      <button class="demo-btn" data-page="next" ${currentPage >= totalPages ? "disabled" : ""}>下一页</button>
+    `;
+    pag.querySelectorAll("[data-page]").forEach((btn) => {
+      btn.onclick = () => {
+        if (btn.getAttribute("data-page") === "prev" && currentPage > 1) currentPage--;
+        if (btn.getAttribute("data-page") === "next" && currentPage < totalPages) currentPage++;
+        renderList(currentFiltered);
+        renderPagination(currentFiltered.length);
+      };
+    });
+  };
+
+  // Setup search once
+  if (searchInput && !searchInput.dataset.bound) {
+    searchInput.dataset.bound = "true";
+    searchInput.addEventListener("input", () => {
+      const q = searchInput.value.trim().toLowerCase();
+      currentPage = 1;
+      currentFiltered = !q
+        ? items
+        : items.filter((it) => (it.title + " " + it.body).toLowerCase().includes(q));
+      renderList(currentFiltered);
+      renderPagination(currentFiltered.length);
+    });
+  }
+
+  currentFiltered = items || [];
+  renderList(currentFiltered);
+  renderPagination(currentFiltered.length);
 }
 
 function renderRecruitment(items) {

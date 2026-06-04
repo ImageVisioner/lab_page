@@ -74,34 +74,79 @@ const LabDemos = {
     },
 
     "spectrum-analysis"(el) {
-      const classes = ["矿物 A", "矿物 B", "植被", "水体"];
       el.innerHTML = `
-        <p class="demo-hint">点击样本类别，模拟光谱匹配并给出置信度（演示数据）。</p>
-        <div class="demo-chip-row">${classes.map((c) => `<button type="button" class="demo-chip" data-d2-class="${c}">${c}</button>`).join("")}</div>
-        <div class="demo-result" data-d2-result>请选择一类样本</div>
-        <div class="demo-bar-chart" data-d2-bars></div>
+        <p class="demo-hint">拖动滑块或点击图像区域，对比红外图像非均匀性校正前后效果（左：原始含固定图案噪声，右：深度学习校正后）。</p>
+        <div class="ir-compare" data-ir-compare>
+          <div class="ir-compare-inner">
+            <img src="assets/rearch/2/noise.jpg" alt="校正前（含非均匀性噪声）" class="ir-img ir-before">
+            <div class="ir-after-wrap" data-ir-after>
+              <img src="assets/rearch/2/denoise.png" alt="校正后" class="ir-img">
+            </div>
+            <div class="ir-handle" data-ir-handle>
+              <span class="ir-handle-label">拖动</span>
+            </div>
+          </div>
+          <input type="range" class="ir-range" min="0" max="100" value="50" data-ir-range aria-label="校正前后对比滑块">
+          <div class="ir-label-row">
+            <span class="ir-label">校正前</span>
+            <span class="ir-label">校正后</span>
+          </div>
+        </div>
       `;
-      const result = el.querySelector("[data-d2-result]");
-      const bars = el.querySelector("[data-d2-bars]");
-      el.querySelectorAll("[data-d2-class]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const name = btn.getAttribute("data-d2-class");
-          const scores = classes.map((c) => ({
-            label: c,
-            v: c === name ? 0.55 + Math.random() * 0.35 : Math.random() * 0.25
-          }));
-          const sum = scores.reduce((a, b) => a + b.v, 0);
-          scores.forEach((s) => (s.v = s.v / sum));
-          const top = scores.reduce((a, b) => (b.v > a.v ? b : a));
-          result.textContent = `预测类别：${top.label}（置信度 ${(top.v * 100).toFixed(1)}%）`;
-          bars.innerHTML = scores
-            .map(
-              (s) =>
-                `<div class="demo-bar"><span>${s.label}</span><i style="width:${(s.v * 100).toFixed(0)}%"></i><em>${(s.v * 100).toFixed(0)}%</em></div>`
-            )
-            .join("");
-        });
+
+      const wrap = el.querySelector("[data-ir-compare]");
+      const afterWrap = el.querySelector("[data-ir-after]");
+      const handle = el.querySelector("[data-ir-handle]");
+      const range = el.querySelector("[data-ir-range]");
+
+      const setPos = (p) => {
+        const val = Math.max(0, Math.min(100, p));
+        afterWrap.style.width = `${val}%`;
+        handle.style.left = `${val}%`;
+      };
+
+      range.addEventListener("input", () => setPos(+range.value));
+
+      // Click on image area
+      wrap.addEventListener("click", (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
       });
+
+      // Drag handle
+      let dragging = false;
+      const onMove = (e) => {
+        if (!dragging) return;
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      };
+      handle.addEventListener("mousedown", () => { dragging = true; document.body.style.userSelect = "none"; });
+      window.addEventListener("mouseup", () => { dragging = false; document.body.style.userSelect = ""; });
+      window.addEventListener("mousemove", onMove);
+
+      // Touch support
+      wrap.addEventListener("touchstart", (e) => {
+        dragging = true;
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      }, { passive: true });
+      window.addEventListener("touchend", () => { dragging = false; });
+      window.addEventListener("touchmove", (e) => {
+        if (!dragging) return;
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      }, { passive: true });
+
+      // init at 50%
+      setPos(50);
     },
 
     "computing-spectroscopy"(el) {
@@ -405,16 +450,7 @@ const LabDemos = {
   },
 
   initNewsSearch() {
-    const input = document.querySelector("[data-news-search]");
-    const list = document.querySelector("[data-news]");
-    if (!input || !list) return;
-    input.addEventListener("input", () => {
-      const q = input.value.trim().toLowerCase();
-      list.querySelectorAll(".news-item").forEach((li) => {
-        const text = li.textContent.toLowerCase();
-        li.hidden = q && !text.includes(q);
-      });
-    });
+    // 搜索与分页逻辑已整合到 renderNews 中，此处不再重复绑定
   },
 
   initContactCopy() {
