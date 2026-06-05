@@ -75,21 +75,36 @@ const LabDemos = {
 
     "spectrum-analysis"(el) {
       el.innerHTML = `
-        <p class="demo-hint">拖动滑块或点击图像区域，对比红外图像非均匀性校正前后效果（左：原始含固定图案噪声，右：深度学习校正后）。</p>
-        <div class="ir-compare" data-ir-compare>
-          <div class="ir-compare-inner">
-            <img src="assets/rearch/2/noise.jpg" alt="校正前（含非均匀性噪声）" class="ir-img ir-before">
-            <div class="ir-after-wrap" data-ir-after>
-              <img src="assets/rearch/2/denoise.png" alt="校正后" class="ir-img">
+        <p class="demo-hint">拖动滑块或点击图像区域，对比红外图像非均匀性校正前后效果（左：原始含固定图案噪声，右：深度学习校正后）。鼠标悬停在图像上可查看 15×15 像素局部对比。</p>
+        <div class="pixel-repair-wrap" data-repair-container>
+          <div class="ir-compare" data-ir-compare>
+            <div class="ir-compare-inner" data-main-area>
+              <img src="assets/rearch/2/noise.jpg" alt="校正前（含非均匀性噪声）" class="ir-img ir-before" data-main-img>
+              <div class="ir-after-wrap" data-ir-after>
+                <img src="assets/rearch/2/denoise.png" alt="校正后" class="ir-img">
+              </div>
+              <div class="ir-handle" data-ir-handle>
+                <span class="ir-handle-label">拖动</span>
+              </div>
             </div>
-            <div class="ir-handle" data-ir-handle>
-              <span class="ir-handle-label">拖动</span>
+            <input type="range" class="ir-range" min="0" max="100" value="50" data-ir-range aria-label="校正前后对比滑块">
+            <div class="ir-label-row">
+              <span class="ir-label">校正前</span>
+              <span class="ir-label">校正后</span>
             </div>
           </div>
-          <input type="range" class="ir-range" min="0" max="100" value="50" data-ir-range aria-label="校正前后对比滑块">
-          <div class="ir-label-row">
-            <span class="ir-label">校正前</span>
-            <span class="ir-label">校正后</span>
+
+          <div class="pixel-popup" data-pixel-popup hidden>
+            <div class="pixel-compare">
+              <div class="pixel-side">
+                <div class="pixel-label">Noise</div>
+                <canvas class="pixel-canvas" data-noise-canvas width="60" height="60"></canvas>
+              </div>
+              <div class="pixel-side">
+                <div class="pixel-label">Denoise</div>
+                <canvas class="pixel-canvas" data-denoise-canvas width="60" height="60"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -98,6 +113,13 @@ const LabDemos = {
       const afterWrap = el.querySelector("[data-ir-after]");
       const handle = el.querySelector("[data-ir-handle]");
       const range = el.querySelector("[data-ir-range]");
+      const mainArea = el.querySelector("[data-main-area]");
+      const mainImg = el.querySelector("[data-main-img]");
+      const popup = el.querySelector("[data-pixel-popup]");
+      const noiseCanvas = el.querySelector("[data-noise-canvas]");
+      const denoiseCanvas = el.querySelector("[data-denoise-canvas]");
+      const noiseCtx = noiseCanvas.getContext("2d", { willReadFrequently: true });
+      const denoiseCtx = denoiseCanvas.getContext("2d", { willReadFrequently: true });
 
       const setPos = (p) => {
         const val = Math.max(0, Math.min(100, p));
@@ -147,6 +169,59 @@ const LabDemos = {
 
       // init at 50%
       setPos(50);
+
+      // Pixel local comparison (15x15 hover)
+      const noiseImg = new Image();
+      const denoiseImg = new Image();
+      let imagesLoaded = 0;
+      const checkReady = () => { imagesLoaded++; };
+      noiseImg.onload = checkReady;
+      denoiseImg.onload = checkReady;
+      noiseImg.src = "assets/rearch/2/noise.jpg";
+      denoiseImg.src = "assets/rearch/2/denoise.png";
+
+      const SIZE = 15;
+      const updatePixelPopup = (clientX, clientY) => {
+        if (imagesLoaded < 2) return;
+        const rect = mainImg.getBoundingClientRect();
+        const x = Math.max(0, Math.min(mainImg.width - 1, Math.floor(((clientX - rect.left) / rect.width) * mainImg.width)));
+        const y = Math.max(0, Math.min(mainImg.height - 1, Math.floor(((clientY - rect.top) / rect.height) * mainImg.height)));
+
+        const half = Math.floor(SIZE / 2);
+        let sx = x - half;
+        let sy = y - half;
+        if (sx < 0) sx = 0;
+        if (sy < 0) sy = 0;
+        if (sx + SIZE > mainImg.width) sx = mainImg.width - SIZE;
+        if (sy + SIZE > mainImg.height) sy = mainImg.height - SIZE;
+
+        noiseCtx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);
+        noiseCtx.imageSmoothingEnabled = false;
+        noiseCtx.drawImage(noiseImg, sx, sy, SIZE, SIZE, 0, 0, noiseCanvas.width, noiseCanvas.height);
+
+        denoiseCtx.clearRect(0, 0, denoiseCanvas.width, denoiseCanvas.height);
+        denoiseCtx.imageSmoothingEnabled = false;
+        denoiseCtx.drawImage(denoiseImg, sx, sy, SIZE, SIZE, 0, 0, denoiseCanvas.width, denoiseCanvas.height);
+
+        popup.hidden = false;
+        const popupRect = popup.getBoundingClientRect();
+        let left = clientX - rect.left + 20;
+        let top = clientY - rect.top - 30;
+        if (left + 140 > mainArea.clientWidth) left = clientX - rect.left - 150;
+        popup.style.left = `${left}px`;
+        popup.style.top = `${top}px`;
+      };
+
+      mainArea.addEventListener("mousemove", (e) => {
+        if (imagesLoaded < 2) return;
+        updatePixelPopup(e.clientX, e.clientY);
+      });
+
+      mainArea.addEventListener("mouseleave", () => {
+        popup.hidden = true;
+      });
+
+      popup.hidden = true;
     },
 
     "computing-spectroscopy"(el) {
@@ -333,6 +408,160 @@ const LabDemos = {
       el.querySelector("[data-d8-s]").addEventListener("change", (e) => {
         p.textContent = presets[e.target.value] || "";
       });
+    },
+
+    "spectrum-repair"(el) {
+      el.innerHTML = `
+        <p class="demo-hint">拖动滑块或点击图像区域，对比红外全波段光谱像素阵列损失修复前后效果（左：含噪声/损毁，右：修复后）。鼠标悬停在图像上可查看 15×15 像素局部对比。</p>
+        <div class="pixel-repair-wrap" data-repair-container>
+          <div class="ir-compare" data-ir-compare>
+            <div class="ir-compare-inner" data-main-area>
+              <img src="assets/rearch/3/noise.png" alt="修复前（含噪声/损毁）" class="ir-img ir-before" data-main-img>
+              <div class="ir-after-wrap" data-ir-after>
+                <img src="" alt="修复后" class="ir-img" data-after-img>
+              </div>
+              <div class="ir-handle" data-ir-handle>
+                <span class="ir-handle-label">拖动</span>
+              </div>
+            </div>
+            <input type="range" class="ir-range" min="0" max="100" value="50" data-ir-range aria-label="修复前后对比滑块">
+            <div class="ir-label-row">
+              <span class="ir-label">修复前</span>
+              <span class="ir-label">修复后</span>
+            </div>
+          </div>
+
+          <div class="pixel-popup" data-pixel-popup hidden>
+            <div class="pixel-compare">
+              <div class="pixel-side">
+                <div class="pixel-label">Noise</div>
+                <canvas class="pixel-canvas" data-noise-canvas width="60" height="60"></canvas>
+              </div>
+              <div class="pixel-side">
+                <div class="pixel-label">Denoise</div>
+                <canvas class="pixel-canvas" data-denoise-canvas width="60" height="60"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const wrap = el.querySelector("[data-ir-compare]");
+      const afterWrap = el.querySelector("[data-ir-after]");
+      const handle = el.querySelector("[data-ir-handle]");
+      const range = el.querySelector("[data-ir-range]");
+      const mainArea = el.querySelector("[data-main-area]");
+      const mainImg = el.querySelector("[data-main-img]");
+      const afterImg = el.querySelector("[data-after-img]");
+      const popup = el.querySelector("[data-pixel-popup]");
+
+      // 动态设置 afterImg 路径，兼容 png / bmp
+      afterImg.onerror = () => {
+        afterImg.src = "assets/rearch/3/denoise.bmp";
+      };
+      afterImg.src = "assets/rearch/3/denoise.png";
+      const noiseCanvas = el.querySelector("[data-noise-canvas]");
+      const denoiseCanvas = el.querySelector("[data-denoise-canvas]");
+      const noiseCtx = noiseCanvas.getContext("2d", { willReadFrequently: true });
+      const denoiseCtx = denoiseCanvas.getContext("2d", { willReadFrequently: true });
+
+      const setPos = (p) => {
+        const val = Math.max(0, Math.min(100, p));
+        afterWrap.style.width = `${val}%`;
+        handle.style.left = `${val}%`;
+      };
+
+      range.addEventListener("input", () => setPos(+range.value));
+
+      wrap.addEventListener("click", (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      });
+
+      let dragging = false;
+      const onMove = (e) => {
+        if (!dragging) return;
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      };
+      handle.addEventListener("mousedown", () => { dragging = true; document.body.style.userSelect = "none"; });
+      window.addEventListener("mouseup", () => { dragging = false; document.body.style.userSelect = ""; });
+      window.addEventListener("mousemove", onMove);
+
+      wrap.addEventListener("touchstart", (e) => {
+        dragging = true;
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      }, { passive: true });
+      window.addEventListener("touchend", () => { dragging = false; });
+      window.addEventListener("touchmove", (e) => {
+        if (!dragging) return;
+        const rect = wrap.getBoundingClientRect();
+        const percent = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+        setPos(percent);
+        range.value = percent;
+      }, { passive: true });
+
+      setPos(50);
+
+      // Pixel local comparison (15x15 hover)
+      const noiseImg = new Image();
+      const denoiseImg = new Image();
+      let imagesLoaded = 0;
+      const checkReady = () => { imagesLoaded++; };
+      noiseImg.onload = checkReady;
+      denoiseImg.onload = checkReady;
+      noiseImg.src = "assets/rearch/3/noise.png";
+      denoiseImg.onerror = () => { denoiseImg.src = "assets/rearch/3/denoise.bmp"; };
+      denoiseImg.src = "assets/rearch/3/denoise.png";
+
+      const SIZE = 15;
+      const updatePixelPopup = (clientX, clientY) => {
+        if (imagesLoaded < 2) return;
+        const rect = mainImg.getBoundingClientRect();
+        const x = Math.max(0, Math.min(mainImg.width - 1, Math.floor(((clientX - rect.left) / rect.width) * mainImg.width)));
+        const y = Math.max(0, Math.min(mainImg.height - 1, Math.floor(((clientY - rect.top) / rect.height) * mainImg.height)));
+
+        const half = Math.floor(SIZE / 2);
+        let sx = x - half;
+        let sy = y - half;
+        if (sx < 0) sx = 0;
+        if (sy < 0) sy = 0;
+        if (sx + SIZE > mainImg.width) sx = mainImg.width - SIZE;
+        if (sy + SIZE > mainImg.height) sy = mainImg.height - SIZE;
+
+        noiseCtx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);
+        noiseCtx.imageSmoothingEnabled = false;
+        noiseCtx.drawImage(noiseImg, sx, sy, SIZE, SIZE, 0, 0, noiseCanvas.width, noiseCanvas.height);
+
+        denoiseCtx.clearRect(0, 0, denoiseCanvas.width, denoiseCanvas.height);
+        denoiseCtx.imageSmoothingEnabled = false;
+        denoiseCtx.drawImage(denoiseImg, sx, sy, SIZE, SIZE, 0, 0, denoiseCanvas.width, denoiseCanvas.height);
+
+        popup.hidden = false;
+        let left = clientX - rect.left + 20;
+        let top = clientY - rect.top - 30;
+        if (left + 140 > mainArea.clientWidth) left = clientX - rect.left - 150;
+        popup.style.left = `${left}px`;
+        popup.style.top = `${top}px`;
+      };
+
+      mainArea.addEventListener("mousemove", (e) => {
+        if (imagesLoaded < 2) return;
+        updatePixelPopup(e.clientX, e.clientY);
+      });
+
+      mainArea.addEventListener("mouseleave", () => {
+        popup.hidden = true;
+      });
+
+      popup.hidden = true;
     },
 
     // Placeholder demos for new research directions (can be expanded later)

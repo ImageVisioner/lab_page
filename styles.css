@@ -1118,6 +1118,55 @@ h2 {
   background: #fff;
 }
 
+/* 像素阵列损失修复演示样式 */
+.pixel-repair-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.pixel-main {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: crosshair;
+}
+
+.pixel-popup {
+  position: absolute;
+  z-index: 20;
+  background: #fff;
+  border: 2px solid #c8161d;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px;
+  pointer-events: none;
+}
+
+.pixel-compare {
+  display: flex;
+  gap: 10px;
+}
+
+.pixel-side {
+  text-align: center;
+}
+
+.pixel-label {
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.pixel-canvas {
+  border: 1px solid #ddd;
+  background: #111;
+  image-rendering: pixelated;
+}
+
 .demo-chip-row,
 .section-toolbar {
   display: flex;
