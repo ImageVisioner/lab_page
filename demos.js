@@ -73,6 +73,105 @@ const LabDemos = {
       draw(Number(range.value));
     },
 
+    "multi-sensor-fusion"(el) {
+      el.innerHTML = `
+        <div style="display:flex; justify-content:center; margin:12px 0;">
+          <div style="background:#0f172a; border-radius:6px; padding:4px; display:flex; align-items:center; justify-content:center;">
+            <canvas width="420" height="320" data-fusion-canvas style="max-width:100%; height:auto; border-radius:4px;"></canvas>
+          </div>
+        </div>
+        <div class="demo-controls" style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" data-play-btn>▶ 滚动播放</button>
+          <button type="button" data-invert-btn>应用反演增强</button>
+          <button type="button" data-reset-btn>重置</button>
+        </div>
+      `;
+      const canvas = el.querySelector("[data-fusion-canvas]");
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      const imgA = new Image();
+      const imgB = new Image();
+      let invertMode = false;
+      let playTimer = null;
+      let playDir = 1;
+      let alpha = 50; // 当前融合权重
+
+      const resizeCanvasToAspect = () => {
+        if (imgA.naturalWidth && imgA.naturalHeight) {
+          const aspect = imgA.naturalWidth / imgA.naturalHeight;
+          const targetW = 420;
+          const targetH = Math.round(targetW / aspect);
+          canvas.width = targetW;
+          canvas.height = Math.min(targetH, 360);
+        }
+      };
+
+      const drawFused = (a, doInvert) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.drawImage(imgA, 0, 0, w, h);
+        ctx.globalAlpha = (100 - a) / 100;
+        ctx.drawImage(imgB, 0, 0, w, h);
+        ctx.globalAlpha = 1;
+
+        if (doInvert) {
+          const imgData = ctx.getImageData(0, 0, w, h);
+          const d = imgData.data;
+          for (let i = 0; i < d.length; i += 4) {
+            d[i] = Math.min(255, d[i] * 1.15 + 10);
+            d[i + 1] = Math.min(255, d[i + 1] * 1.15 + 10);
+            d[i + 2] = Math.min(255, d[i + 2] * 1.15 + 10);
+          }
+          ctx.putImageData(imgData, 0, 0);
+        }
+      };
+
+      const loadAndDraw = () => {
+        let loaded = 0;
+        const check = () => {
+          loaded++;
+          if (loaded === 2) {
+            resizeCanvasToAspect();
+            drawFused(alpha, invertMode);
+          }
+        };
+        imgA.onload = check;
+        imgB.onload = check;
+        imgA.src = "assets/rearch/1/1.png";
+        imgB.src = "assets/rearch/1/2.png";
+      };
+
+      const playBtn = el.querySelector("[data-play-btn]");
+      playBtn.addEventListener("click", () => {
+        if (playTimer) {
+          clearInterval(playTimer);
+          playTimer = null;
+          playBtn.textContent = "▶ 滚动播放";
+          return;
+        }
+        playBtn.textContent = "⏸ 暂停播放";
+        playTimer = setInterval(() => {
+          alpha += playDir * 4;
+          if (alpha >= 100) { alpha = 100; playDir = -1; }
+          if (alpha <= 0) { alpha = 0; playDir = 1; }
+          drawFused(alpha, invertMode);
+        }, 80);
+      });
+
+      el.querySelector("[data-invert-btn]").addEventListener("click", () => {
+        invertMode = !invertMode;
+        drawFused(alpha, invertMode);
+      });
+      el.querySelector("[data-reset-btn]").addEventListener("click", () => {
+        if (playTimer) { clearInterval(playTimer); playTimer = null; playBtn.textContent = "▶ 滚动播放"; }
+        invertMode = false;
+        alpha = 50;
+        drawFused(alpha, false);
+      });
+
+      loadAndDraw();
+    },
+
     "spectrum-analysis"(el) {
       el.innerHTML = `
         <p class="demo-hint">拖动滑块或点击图像区域，对比红外图像非均匀性校正前后效果（左：原始含固定图案噪声，右：深度学习校正后）。鼠标悬停在图像上可查看 15×15 像素局部对比。</p>
@@ -264,27 +363,92 @@ const LabDemos = {
     },
 
     "instrument-system"(el) {
+      const images = [
+        "assets/rearch/4/1.png",
+        "assets/rearch/4/2.png",
+        "assets/rearch/4/3.png",
+        "assets/rearch/4/4.png",
+        "assets/rearch/4/5.png",
+        "assets/rearch/4/6.png"
+      ];
       el.innerHTML = `
-        <p class="demo-hint">调节光谱仪积分时间与信噪比（模拟）。</p>
-        <div class="demo-controls">
-          <label>积分时间 (ms) <input type="range" min="10" max="500" value="100" data-d4-t></label>
-          <span data-d4-tv>100</span>
+        <div style="max-width:620px; margin:0 auto;">
+          <div style="position:relative; background:#0f172a; border-radius:8px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+            <img data-carousel-img style="width:100%; height:auto; max-height:420px; display:block; object-fit:contain; background:#0f172a;" />
+            <div style="position:absolute; top:8px; right:8px; background:rgba(15,23,42,0.7); color:#e2e8f0; font-size:12px; padding:2px 8px; border-radius:4px;" data-carousel-index>1 / 6</div>
+          </div>
+          <div style="display:flex; justify-content:center; align-items:center; gap:12px; margin-top:12px; flex-wrap:wrap;">
+            <button type="button" data-prev style="padding:6px 14px;">◀ 上一张</button>
+            <button type="button" data-play style="padding:6px 14px;">▶ 自动轮播</button>
+            <button type="button" data-next style="padding:6px 14px;">下一张 ▶</button>
+          </div>
+          <div style="display:flex; justify-content:center; gap:6px; margin-top:8px;" data-dots></div>
         </div>
-        <p class="demo-metric">估计信噪比 SNR：<strong data-d4-snr>28.5</strong> dB</p>
-        <p class="demo-metric">状态：<span data-d4-st>就绪</span></p>
       `;
-      const t = el.querySelector("[data-d4-t]");
-      const tv = el.querySelector("[data-d4-tv]");
-      const snr = el.querySelector("[data-d4-snr]");
-      const st = el.querySelector("[data-d4-st]");
-      t.addEventListener("input", () => {
-        const v = Number(t.value);
-        tv.textContent = v;
-        const s = 18 + Math.log10(v) * 8 + Math.random() * 2;
-        snr.textContent = s.toFixed(1);
-        st.textContent = v > 400 ? "饱和预警" : v < 30 ? "信号偏弱" : "采集中";
-        st.style.color = v > 400 ? "#c8161d" : "#1a4f8c";
+
+      const imgEl = el.querySelector("[data-carousel-img]");
+      const indexEl = el.querySelector("[data-carousel-index]");
+      const dotsContainer = el.querySelector("[data-dots]");
+      const prevBtn = el.querySelector("[data-prev]");
+      const playBtn = el.querySelector("[data-play]");
+      const nextBtn = el.querySelector("[data-next]");
+
+      let current = 0;
+      let timer = null;
+      let isPlaying = false;
+
+      const renderDots = () => {
+        dotsContainer.innerHTML = "";
+        images.forEach((_, i) => {
+          const dot = document.createElement("span");
+          dot.style.cssText = "width:8px;height:8px;border-radius:50%;background:" + (i === current ? "#1a4f8c" : "#cbd5e1") + ";cursor:pointer;display:inline-block;";
+          dot.addEventListener("click", () => { goTo(i); });
+          dotsContainer.appendChild(dot);
+        });
+      };
+
+      const update = () => {
+        imgEl.src = images[current];
+        indexEl.textContent = `${current + 1} / ${images.length}`;
+        renderDots();
+      };
+
+      const goTo = (idx) => {
+        current = (idx + images.length) % images.length;
+        update();
+      };
+
+      const next = () => goTo(current + 1);
+      const prev = () => goTo(current - 1);
+
+      prevBtn.addEventListener("click", prev);
+      nextBtn.addEventListener("click", next);
+
+      playBtn.addEventListener("click", () => {
+        if (isPlaying) {
+          clearInterval(timer);
+          isPlaying = false;
+          playBtn.textContent = "▶ 自动轮播";
+        } else {
+          isPlaying = true;
+          playBtn.textContent = "⏸ 暂停";
+          timer = setInterval(() => {
+            next();
+          }, 1600);
+        }
       });
+
+      // keyboard support
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
+      });
+      el.setAttribute("tabindex", "0");
+
+      // init
+      update();
+      // preload next images
+      images.forEach((src) => { const p = new Image(); p.src = src; });
     },
 
     "project-multimodal"(el) {
