@@ -4,7 +4,7 @@
     "name": "先进光电成像与智能装备课题组",
     "mark": "像",
     "university": "长江师范学院",
-    "college": "电子信息与工程学院",
+    "college": "电子信息工程学院",
     "department": "计算机科学与技术系",
     "subtitle": "Advanced Optoelectronic Imaging and Intelligent Equipment Lab"
   },
@@ -49,9 +49,8 @@
     "title": "联系我们",
     "intro": "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com",
     "organization": "先进光电成像与智能装备课题组",
-    "address": "北京大学 科研楼 305 室",
+    "address": "格物楼 305 室",
     "email": "liuchenhua023@163.com",
-    "phone": "010-0000-0000（示例）",
     "links": [
       { "label": "学院主页", "href": "https://wdxy.yznu.edu.cn/" },
       { "label": "导师个人主页", "href": "#" }
@@ -90,7 +89,7 @@
   },
   "footer": {
     "copyright": "© 2026 先进光电成像与智能装备课题组",
-    "note": "本站为静态页面，内容由 data/ 目录 JSON 驱动，便于长期维护与扩展。"
+    "note": ""
   }
 },
   research: [

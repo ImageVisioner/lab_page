@@ -522,23 +522,21 @@ function applySite(site) {
 
   const contactEl = document.querySelector("[data-contact]");
   if (contactEl) {
-    const email = contact?.email
-      ? `<a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>`
-      : "";
-    const phone = contact?.phone ? `<span>${escapeHtml(contact.phone)}</span>` : "";
-    const links = (contact?.links || [])
-      .map((l) => `<a href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`)
-      .join("");
     const copyBtn = contact?.email
       ? `<button type="button" class="demo-btn demo-btn--small" data-copy-email="${escapeHtml(contact.email)}">复制邮箱</button>`
       : "";
+    const emailLine = contact?.email
+      ? `邮箱:<a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a> ${copyBtn}`
+      : "";
+    const links = (contact?.links || [])
+      .map((l) => `<a href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`)
+      .join(" | ");
     contactEl.innerHTML = `
       <strong>${escapeHtml(contact?.organization || lab.name)}</strong>
       <span>${escapeHtml(lab.university)} ${escapeHtml(lab.college || "")}</span>
       <span>${escapeHtml(contact?.address || "")}</span>
-      ${email}
-      ${phone}
-      ${copyBtn}
+      ${emailLine}
+      <br>
       <div class="contact-links">${links}</div>
     `;
   }
