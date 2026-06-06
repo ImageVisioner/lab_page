@@ -527,7 +527,7 @@ function applySite(site) {
       : "";
     const phone = contact?.phone ? `<span>${escapeHtml(contact.phone)}</span>` : "";
     const links = (contact?.links || [])
-      .map((l) => `<a href="${escapeHtml(l.href)}">${escapeHtml(l.label)}</a>`)
+      .map((l) => `<a href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`)
       .join("");
     const copyBtn = contact?.email
       ? `<button type="button" class="demo-btn demo-btn--small" data-copy-email="${escapeHtml(contact.email)}">复制邮箱</button>`
