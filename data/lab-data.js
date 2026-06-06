@@ -42,7 +42,7 @@
     "highlights": [
       { "label": "成立时间", "value": "2026 年" },
       { "label": "依托平台", "value": "长江师范学院· 电子信息工程学院" },
-      { "label": "主要方向", "value": "图像重建· 智能装备· 视觉导航· 目标检测· 光电检测" }
+      { "label": "主要方向", "value": "图像损伤重建· 智能装备· 无人机视觉· 光谱计算等" }
     ]
   },
   "contact": {
@@ -53,9 +53,8 @@
     "email": "liuchenhua023@163.com",
     "phone": "010-0000-0000（示例）",
     "links": [
-      { "label": "学院主页", "href": "#" },
-      { "label": "导师个人主页", "href": "#" },
-      { "label": "GitHub 组织", "href": "#" }
+      { "label": "学院主页", "href": "https://wdxy.yznu.edu.cn/" },
+      { "label": "导师个人主页", "href": "#" }
     ]
   },
   "archives": {
