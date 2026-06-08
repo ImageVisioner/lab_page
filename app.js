@@ -437,10 +437,24 @@ function applySite(site) {
   setText("[data-hero-title]", hero?.title);
   setText("[data-hero-lead]", hero?.lead);
 
+  const keywordIcons = {
+    "无人机视觉": "🛸",
+    "反无人机": "🎯",
+    "光谱重建": "📡",
+    "智能装备": "🤖",
+    "可微分视觉": "📐",
+    "红外图像": "🌡️",
+    "损伤修复": "🔧",
+    "工业视觉": "🏭"
+  };
+
   const keywordsEl = document.querySelector("[data-hero-keywords]");
   if (keywordsEl) {
     keywordsEl.innerHTML = (hero?.keywords || [])
-      .map((k) => `<span>${escapeHtml(k)}</span>`)
+      .map((k) => {
+        const icon = keywordIcons[k] || "";
+        return `<span>${icon ? `<span class="kw-icon">${icon}</span>` : ""}${escapeHtml(k)}</span>`;
+      })
       .join("");
   }
 

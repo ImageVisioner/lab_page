@@ -237,12 +237,20 @@ h2 {
 }
 
 .hero-meta span {
-  padding: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
   border: 1px solid #b8c9da;
   background: #fff;
   color: var(--primary-dark);
   font-size: 13px;
   white-space: nowrap;
+}
+
+.hero-meta .kw-icon {
+  font-size: 14px;
+  line-height: 1;
 }
 
 .hero-actions {
