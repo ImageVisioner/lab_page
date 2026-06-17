@@ -304,7 +304,7 @@ const fallbackData = {
       role: "硕士研究生（外校指导）",
       year: "2023 级",
       focus: "光谱算法",
-      destination: "上海智辰半导体算法工程师",
+      destination: "上海芯动科技算法工程师",
       email: "wangkexuan@example.edu"
     },
     {
