@@ -22,6 +22,26 @@
   box-sizing: border-box;
 }
 
+.contact-email-highlight {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: var(--band);
+  border-radius: 3px;
+  padding: 2px 4px;
+  overflow-wrap: anywhere;
+}
+
+.contact-email-highlight:hover {
+  color: var(--primary-dark);
+}
+
+.contact-email-highlight:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
 .back-to-top {
   position: fixed;
   right: 20px;
