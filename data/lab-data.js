@@ -1,4 +1,4 @@
-﻿window.LAB_DATA = {
+window.LAB_DATA = {
   site: {
   "lab": {
     "name": "先进光电成像与智能装备课题组",
@@ -75,7 +75,7 @@
     "people": {
       "eyebrow": "团队成员",
       "title": "课题组人员",
-      "intro": "当前 9 人：导师 2 名、在读博士/硕士/本科 7 名。顶部可按类别筛选。",
+      "intro": "当前 8 人：导师 1 名、在读博士/硕士/本科 7 名。顶部可按类别筛选。",
       "destinationLabel": "毕业去向",
       "emailLabel": "邮箱"
     },
@@ -406,16 +406,6 @@
     "email": "liuchenhua023@163.com",
     "photo": "liuchenhua.jpg",
     "bio": "刘陈华讲师长期从事计算凸优化、光谱重建算法与三维视觉重建研究。"
-  },
-  {
-    "name": "辛笛",
-    "group": "导师",
-    "role": "教授、博士生导师",
-    "focus": "光谱智能计算、计算成像、可信学习",
-    "email": "xindi@example.edu",
-    "homepage": "#",
-    "photo": "xindi.jpg",
-    "bio": "辛笛教授专注于光谱智能计算、计算成像与可信学习方向，在多模态感知与科学可视化领域有深入研究，多次获得省部级科技奖励。"
   },
   {
     "name": "邓磊",

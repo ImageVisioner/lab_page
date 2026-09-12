@@ -250,13 +250,6 @@ const fallbackData = {
       email: "liuchenhua023@163.com"
     },
     {
-      name: "辛笛",
-      group: "导师",
-      role: "教授、博士生导师",
-      focus: "光谱智能计算、计算成像、可信学习",
-      email: "xindi@example.edu"
-    },
-    {
       name: "邓磊",
       group: "在读学生",
       role: "博士研究生",
@@ -1119,6 +1112,20 @@ function setupNavToggle() {
   });
 }
 
+function setupBackToTop() {
+  const button = document.querySelector("[data-back-to-top]");
+  if (!button) return;
+  const updateVisibility = () => {
+    button.hidden = window.scrollY < 300;
+  };
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  button.addEventListener("click", () => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "instant" : "smooth" });
+  });
+  updateVisibility();
+}
+
 function showLoadError(message) {
   const box = document.getElementById("load-error");
   if (!box) return;
@@ -1182,4 +1189,5 @@ async function init() {
   }
 }
 
+setupBackToTop();
 init();
