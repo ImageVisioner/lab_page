@@ -444,8 +444,8 @@ function applySite(site) {
     "智能装备": "🤖",
     "可微分视觉": "📐",
     "红外图像": "🌡️",
-    "损伤修复": "🔧",
-    "工业视觉": "🏭"
+    "高斯三维泼溅": "🔧",
+    "神经渲染场": "🏭"
   };
 
   const keywordsEl = document.querySelector("[data-hero-keywords]");
