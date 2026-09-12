@@ -47,10 +47,11 @@ window.LAB_DATA = {
   },
   "contact": {
     "title": "联系我们",
-    "intro": "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com",
+    "intro": "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com 和 liuchenhua023@yznu.edu.cn（请同时抄送）",
     "organization": "先进光电成像与智能装备课题组",
     "address": "至定楼(南) 206",
     "email": "liuchenhua023@163.com",
+    "ccEmail": "liuchenhua023@yznu.edu.cn",
     "links": [
       { "label": "学院主页", "href": "https://wdxy.yznu.edu.cn/" },
       { "label": "导师个人主页", "href": "#" }
@@ -404,6 +405,7 @@ window.LAB_DATA = {
     "title": "实验室负责人",
     "focus": "计算凸优化、光谱重建算法、三维视觉重建",
     "email": "liuchenhua023@163.com",
+
     "photo": "liuchenhua.jpg",
     "bio": "刘陈华讲师长期从事计算凸优化、光谱重建算法与三维视觉重建研究。"
   },

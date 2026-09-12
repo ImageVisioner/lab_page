@@ -50,10 +50,11 @@ const fallbackData = {
     },
     contact: {
       title: "联系我们",
-      intro: "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com",
+      intro: "报考硕士研究生的同学请发送简历到邮箱\n想调剂到本课题组的攻读硕士研究生请发邮件给老师确定名额\n本科生申请科研锻炼和毕业设计的同学请到办公室和老师详谈\n联系邮箱： liuchenhua023@163.com 和 liuchenhua023@yznu.edu.cn（请同时抄送）",
       organization: "先进光电成像与智能装备课题组",
       address: "",
       email: "liuchenhua023@163.com",
+      ccEmail: "liuchenhua023@yznu.edu.cn",
       links: []
     },
     archives: { publications: "#", news: "#" },
@@ -520,7 +521,17 @@ function applySite(site) {
 
   setText("[data-contact-tag]", sec.contact?.eyebrow || "联系我们");
   setText("[data-contact-title]", contact?.title || "联系我们");
-  setText("[data-contact-intro]", contact?.intro);
+  const contactIntro = document.querySelector("[data-contact-intro]");
+  if (contactIntro) {
+    const mailto = `mailto:${contact?.email || ""}${contact?.ccEmail ? `?cc=${encodeURIComponent(contact.ccEmail)}` : ""}`;
+    const emails = [contact?.email, contact?.ccEmail].filter(Boolean);
+    contactIntro.innerHTML = String(contact?.intro || "")
+      .split(/(liuchenhua023@163\.com|liuchenhua023@yznu\.edu\.cn)/g)
+      .map((part) => emails.includes(part)
+        ? `<a class="contact-email-highlight" href="${escapeHtml(mailto)}">${escapeHtml(part)}</a>`
+        : escapeHtml(part))
+      .join("");
+  }
 
   const archivePub = document.querySelector("[data-archive-publications]");
   if (archivePub) archivePub.href = archives?.publications || "#";
@@ -529,11 +540,13 @@ function applySite(site) {
 
   const contactEl = document.querySelector("[data-contact]");
   if (contactEl) {
+    const contactEmails = [contact?.email, contact?.ccEmail].filter(Boolean);
+    const contactMailto = `mailto:${contact?.email || ""}${contact?.ccEmail ? `?cc=${encodeURIComponent(contact.ccEmail)}` : ""}`;
     const copyBtn = contact?.email
-      ? `<button type="button" class="demo-btn demo-btn--small" data-copy-email="${escapeHtml(contact.email)}">复制邮箱</button>`
+      ? `<button type="button" class="demo-btn demo-btn--small" data-copy-email="${escapeHtml(contactEmails.join(", "))}">复制邮箱</button>`
       : "";
     const emailLine = contact?.email
-      ? `邮箱:<a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a> ${copyBtn}`
+      ? `邮箱（请同时抄送）：${contactEmails.map((email) => `<a href="${escapeHtml(contactMailto)}">${escapeHtml(email)}</a>`).join(" ")} ${copyBtn}`
       : "";
     const links = (contact?.links || [])
       .map((l) => `<a href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`)
@@ -1178,7 +1191,7 @@ async function init() {
         const body = encodeURIComponent(
           "老师您好，\n\n我对贵实验室的招生信息很感兴趣，附上个人简历与研究计划，恳请指正。\n\n此致\n敬礼"
         );
-        window.location.href = `mailto:liuchenhua023@163.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:liuchenhua023@163.com?cc=liuchenhua023%40yznu.edu.cn&subject=${subject}&body=${body}`;
       });
     });
   } catch (err) {
